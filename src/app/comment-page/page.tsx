@@ -1,12 +1,13 @@
 "use client";
-import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
+//import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import Link from "next/link";
 
 export default function commentPage() {
   return <div className="px-4 py-3">
     <div className="flex items-center gap-3">
       <Link href="/" aria-label="戻る" className="-ml-2 rounded-full p-2 hover:bg-gray-100">
-          <ArrowBackIos />
+          {/*<ArrowBackIos />*/}
+          <img src="vercel.svg" />
       </Link>
       <div className="h-10 w-10 rounded-full bg-gray-300" />
       <div className="flex flex-col leading-tight">
