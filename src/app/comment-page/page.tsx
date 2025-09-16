@@ -2,7 +2,7 @@
 import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import Link from "next/link";
 
-export default function CommentPage() {
+export default function commentPage() {
   return <div className="px-4 py-3">
     <div className="flex items-center gap-3">
       <Link href="/" aria-label="戻る" className="-ml-2 rounded-full p-2 hover:bg-gray-100">
@@ -15,5 +15,6 @@ export default function CommentPage() {
       </div>
     </div>
     <div className="text-lg mt-4 flex h-60 w-full items-center justify-center rounded bg-gray-200">thumbnail</div>
+    
   </div>;
 }
