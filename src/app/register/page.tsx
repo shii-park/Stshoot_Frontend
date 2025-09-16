@@ -1,29 +1,31 @@
 'use client'
-import Link from "next/link"
 import {auth} from "@/lib//firebase"
-import {signInWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword } from "firebase/auth";
 import React, {useState} from "react"
 import {useRouter} from "next/navigation"
 
-export default function Login(){
+export default function Register(){
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
+    const router=useRouter()
 
-    const handleLogin=async(e:React.FormEvent)=>{
-        e.preventDefault();
+    const handleRegister=async(e:React.FormEvent)=>{
+        e.preventDefault()
         try{
-            const userCredential=await signInWithEmailAndPassword(auth,email,password);
-            alert("ログインが完了しました！");
+            const userCredential=await createUserWithEmailAndPassword(auth,email,password);
+            const user=userCredential.user;
+            alert("新規登録が完了しました！")
+            router.push("../login");
         }catch(err){
             alert(err);
         }
-    }
-    return(
+    };
+    return (
         <div className="flex flex-col items-center">
             <div className="text-2xl">
-                <p>ログイン</p>
+                <p>新規登録</p>
             </div>
-            <form className="flex flex-col" onSubmit={handleLogin}>
+            <form className="flex flex-col" onSubmit={handleRegister}>
                 <input 
                 type="email" 
                 value={email} 
@@ -31,14 +33,11 @@ export default function Login(){
                 onChange={(e)=>setEmail(e.target.value)}/>
                 <input 
                 type="password" 
-                value={password} 
-                placeholder="パスワード" 
+                value={password}
+                placeholder="パスワード"
                 onChange={(e)=>setPassword(e.target.value)}/> 
-                <button type="submit">ログイン</button>
+                <button type="submit">新規登録</button>
             </form>
-            <div>
-                <Link href="../register"><p>新規登録</p></Link>
-            </div>
         </div>
     )
-} 
+}
