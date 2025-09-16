@@ -1,7 +1,16 @@
-export default function menuButton(){
-    return(
-        <div className="justify-end mt-5">
-        <p>ボタン(仮)</p>
+type Props={
+    open:boolean;
+    onClick:()=>void;
+}
+export default function menuButton({open,onClick}:Props){
+
+    return (
+
+        <div>
+            <button
+            onClick={onClick}>
+                <img src="menuIcon.svg"/>
+            </button>
         </div>
     )
-};
+}
