@@ -1,5 +1,5 @@
 import {initializeApp,getApps,getApp} from "firebase/app"
-import { getAuth} from "firebase/auth";
+import { getAuth,signInAnonymously,onAuthStateChanged} from "firebase/auth";
 
 const firebaseConfig={
     apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -13,3 +13,15 @@ const firebaseConfig={
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    signInAnonymously(auth)
+      .then(() => {
+        console.log("匿名ユーザーでログインしました");
+      })
+      .catch((error) => {
+        console.error("匿名サインインエラー:", error);
+      });
+  }
+});
