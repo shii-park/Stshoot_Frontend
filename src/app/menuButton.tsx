@@ -1,16 +1,10 @@
-type Props={
-    open:boolean;
-    onClick:()=>void;
-}
-export default function menuButton({open,onClick}:Props){
+import Link from "next/link"
+export default function menuButton(){
 
     return (
 
-        <div>
-            <button
-            onClick={onClick}>
-                <img className="animate-rotate-in-2-ccw" src="menuIcon.svg"/>
-            </button>
+        <div className="bg-stone-500 text-white rounded-2xl px-5 py-3 mt-3 mr-2">
+            <Link href="./login"><button>ログイン</button></Link>
         </div>
     )
 }

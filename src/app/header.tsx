@@ -2,7 +2,6 @@
 import {useState} from "react"
 import Link from "next/link"
 import MenuButton from "./menuButton"
-import Navigation from "./navigation"
 export default function Header(){
     const [open,setOpen]=useState(false);
     function handleClick(){
@@ -19,11 +18,7 @@ export default function Header(){
                 </Link>
               </div>
               <div className="ml-auto">
-                <MenuButton 
-                open={open}
-                onClick={handleClick}
-                />
-                <Navigation open={open} />
+                <MenuButton />
               </div>
             </div>
     )
