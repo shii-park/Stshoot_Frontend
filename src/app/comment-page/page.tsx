@@ -12,7 +12,7 @@ export default function CommentPage() {
   const searchParams=useSearchParams();
   const {user, loading } = useAuth();
   const listRef = useRef<HTMLDivElement | null>(null);
-  const roomId=searchParams.toString();
+  const roomId=searchParams.get("roomId");
   const [socketStatus,setSocketStatus]=useState("");
 
   useEffect(()=>{
