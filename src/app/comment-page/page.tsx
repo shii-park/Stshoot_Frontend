@@ -28,7 +28,7 @@ export default function CommentPage() {
               alert("キャンセルしました");
               router.push("/");
     }
-  },)
+  },[])
 
   if (loading) {
     return <div>認証中...</div>
