@@ -52,7 +52,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
     };
 
     return (
-        <div className="px-3 py-3 border-t bg-white/80 backdrop-blur absolute bottom-0">
+        <div className="px-3 py-3 border-t bg-white/80 backdrop-blur">
             <div className="mx-auto flex items-center gap-2">
                 <input
                     value={text}

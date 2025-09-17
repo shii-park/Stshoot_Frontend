@@ -65,7 +65,7 @@ export default function CommentPage() {
   // const displayId = user.displayName || user.uid;
   const displayId = user.displayName || user.email;
 
-  return <div className="min-h-dvh flex flex-col">
+  return <div className="h-screen flex flex-col">
     <div className="flex items-center gap-3 pt-2.5">
       <Link href="/" aria-label="戻る" className="rounded-full p-2 hover:bg-gray-100">
         <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 text-gray-600">
@@ -80,14 +80,16 @@ export default function CommentPage() {
     </div>
     <div className="text-lg mt-4 flex h-60 w-full items-center justify-center rounded bg-gray-200">thumbnail</div>
 
-    <div ref={listRef} className="flex-1 overflow-y-auto px-3 mt-3">
+    <div ref={listRef} className="flex-1 overflow-y-auto px-3 mt-20">
       <CommentList comments={comments} />
     </div>
 
-    <CommentForm
-      userId={displayId as string}
-      onSend={handleCommentSend}
-      socket={wsRef.current}
-    />
+    <div className="fixed bottom-0 left-0 w-full z-10">
+      <CommentForm
+        userId={displayId as string}
+        onSend={handleCommentSend}
+        socket={wsRef.current}
+      />
+    </div>
   </div>;
 }
