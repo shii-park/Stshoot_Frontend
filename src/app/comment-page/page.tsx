@@ -1,15 +1,32 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useRouter,useSearchParams } from "next/navigation";
 import CommentForm from "@/app/components/CommentForm";
 import CommentList, { type CommentItem } from "@/app/components/CommentList";
 import { useAuth } from '@/hooks/useAuth';
 
 
 export default function CommentPage() {
+  const router=useRouter();
+  const searchParams=useSearchParams();
   const {user, loading } = useAuth();
   const listRef = useRef<HTMLDivElement | null>(null);
+  const roomId=searchParams.toString();
+  const [socketStatus,setSocketStatus]=useState("");
 
+  if(roomId){ //roomIdがあればソケット通信開始
+    const socket=new WebSocket(`wss://stshoot-backend.onrender.com/ws/sender/${roomId}`);
+            socket.addEventListener("open", () => {
+                setSocketStatus("オンライン");
+            });
+            socket.addEventListener("error", () => {
+                setSocketStatus("オフライン");
+            }); 
+        }else{ //なければトップページに戻る
+            alert("キャンセルしました");
+            router.push("/");
+  }
   if (loading) {
     return <div>認証中...</div>
   }
@@ -31,6 +48,7 @@ export default function CommentPage() {
           <path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
         </svg>
       </Link>
+      <p>{socketStatus}</p>
       <div className="h-10 w-10 rounded-full bg-gray-300" />
       <div className="flex flex-col leading-tight">
         <span className="text-base font-medium">配信者名</span>
