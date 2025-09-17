@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import { type CommentItem } from "@/app/components/CommentList";
 
 interface CommentFormProps {
@@ -13,10 +13,11 @@ interface CommentFormProps {
 const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
     const [text, setText] = useState("");
     const [isSending, setIsSending] = useState(false);
+    const lastSentTime = useRef<number>(0); 
 
     const handleSend = useCallback(async () => {
         const trimmed = text.trim();
-        if (!trimmed || isSending || !userId || !socket || socket.readyState !== WebSocket.OPEN) {
+        if (!trimmed || isSending || !userId || !socket || socket.readyState !== WebSocket.OPEN || lastSentTime.current < 1000) {
             return;
         }
 
@@ -37,6 +38,8 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
             });
 
             setText("");
+            lastSentTime.current = Date.now();
+
         } catch (error) {
             console.error("コメントの送信エラー", error);
         } finally {
@@ -55,6 +58,8 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
         }
     };
 
+    const isButtonDisabled = isSending || !userId || !socket || socket.readyState !== WebSocket.OPEN || (Date.now() - lastSentTime.current < 1000);
+
     return (
         <div className="px-3 py-3 border-t bg-white/80 backdrop-blur">
             <div className="mx-auto flex items-center gap-2">
@@ -69,7 +74,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
                 <button
                     type="button"
                     onClick={handleSend}
-                    disabled={isSending || !userId || !socket || socket.readyState !== WebSocket.OPEN}
+                    disabled={isButtonDisabled}
                     className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 text-gray-700 hover:bg-gray-400 disabled:opacity-50"
                     aria-label="送信"
                     title="送信"
