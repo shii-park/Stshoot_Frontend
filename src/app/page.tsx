@@ -4,7 +4,7 @@ import Link from "next/link"
 import ToButton from "./toButton"
 import { useEffect,useState } from "react";
 //import {Uid} from "@/lib/firebase"
-import {onAuthStateChanged, User} from "firebase/auth"
+import { User, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
 export default function Home() {
