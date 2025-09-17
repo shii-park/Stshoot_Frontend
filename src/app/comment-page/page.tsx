@@ -1,5 +1,4 @@
 "use client";
-//import ArrowBackIos from "@material-ui/icons/ArrowBackIos";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import CommentForm from "@/app/components/CommentForm";
@@ -17,8 +16,10 @@ export default function CommentPage() {
 
   return <div className="min-h-dvh flex flex-col">
     <div className="flex items-center gap-3 pt-2.5">
-      <Link href="/" aria-label="戻る" className="rounded-full pl-3 hover:bg-gray-100">
-          <ArrowBackIos />
+      <Link href="/" aria-label="戻る" className="rounded-full p-2 hover:bg-gray-100">
+        <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 text-gray-600">
+          <path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+        </svg>
       </Link>
       <div className="h-10 w-10 rounded-full bg-gray-300" />
       <div className="flex flex-col leading-tight">
