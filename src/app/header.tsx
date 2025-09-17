@@ -1,5 +1,6 @@
 'use client'
 import {useState} from "react"
+import Link from "next/link"
 import MenuButton from "./menuButton"
 import Navigation from "./navigation"
 export default function Header(){
@@ -13,7 +14,9 @@ export default function Header(){
     return (
         <div className="flex box-border h-20 bg-white border-b-2">
               <div className="mt-5 ml-5 text-2xl md:ml-10 md:text-lg lg:ml-10 lg:text-5xl"> {/*クラスは修正予定*/}
-                <h1>StShoot</h1>
+                <Link href="/">
+                  <h1>StShoot</h1>
+                </Link>
               </div>
               <div className="ml-auto">
                 <MenuButton 
