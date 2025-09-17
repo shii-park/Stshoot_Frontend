@@ -1,50 +1,49 @@
 "use client";
 
 import React, { useCallback, useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
-import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { type CommentItem } from "@/app/components/CommentList";
 
 interface CommentFormProps {
     userId: string;
     onSend: (comment: CommentItem) => void;
+    socket: WebSocket | null;
 }
 
 
-const CommentForm = ({ userId, onSend }: CommentFormProps) => {
+const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
     const [text, setText] = useState("");
     const [isSending, setIsSending] = useState(false);
 
     const handleSend = useCallback(async () => {
         const trimmed = text.trim();
-        if (!trimmed || isSending || !userId) return;
+        if (!trimmed || isSending || !userId || !socket || socket.readyState !== WebSocket.OPEN) {
+            return;
+        }
 
         setIsSending(true);
 
         try {
-            console.log("Firestoreへの書き込みを開始します...");
-            await addDoc(collection(db, "comments"), {
+            const newComment = {
                 userId: userId,
                 text: trimmed,
-                createAt: serverTimestamp(),
-            });
-            console.log("Firestoreへの書き込みが成功しました。");
+            };
+            socket.send(JSON.stringify(newComment));
 
-            const newComment: CommentItem = {
+            const tempComment: CommentItem = {
                 id: 'temp-id-' + Date.now(),
                 userId: userId,
                 text: trimmed,
                 createdAt: new Date().toISOString(),
-            }
+            };
+
             setText("");
-            onSend(newComment);;
+            onSend(tempComment);;
         } catch (error) {
             console.error("コメントの送信エラー", error);
         } finally {
             setIsSending(false);
         }
-    }, [text, isSending, userId, onSend]);
+    }, [text, isSending, userId, onSend, socket]);
 
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
@@ -67,7 +66,7 @@ const CommentForm = ({ userId, onSend }: CommentFormProps) => {
                 <button
                     type="button"
                     onClick={handleSend}
-                    disabled={isSending || !userId}
+                    disabled={isSending || !userId || !socket || socket.readyState !== WebSocket.OPEN}
                     className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 text-gray-700 hover:bg-gray-400 disabled:opacity-50"
                     aria-label="送信"
                     title="送信"
