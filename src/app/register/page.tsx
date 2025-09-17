@@ -25,20 +25,20 @@ export default function Register(){
             <div className="text-2xl">
                 <p>新規登録</p>
             </div>
-            <form className="flex flex-col" onSubmit={handleRegister}>
+            <form className="flex flex-col items-center " onSubmit={handleRegister}>
                 <input 
                 type="email" 
                 value={email} 
                 placeholder="メールアドレス" 
-                className="mb-5 text-3xl text-center border-2 rounded-2xl w-80 h-25"
+                className="border-2 text-xl text-center rounded-2xl mt-60 w-75 h-15"
                 onChange={(e)=>setEmail(e.target.value)}/>
                 <input 
                 type="password" 
                 value={password}
                 placeholder="パスワード"
-                className="mb-5 text-3xl text-center border-2 rounded-2xl w-80 h-25"
+                className="border-2 text-xl text-center rounded-2xl mt-5 w-75 h-15"
                 onChange={(e)=>setPassword(e.target.value)}/> 
-                <button type="submit" className="bg-zinc-700 hover:bg-zinc-400 text-white text-2xl rounded-2xl w-80 h-25">新規登録</button>
+                <button type="submit" className="bg-zinc-700 hover:bg-zinc-400 text-white text-2xl rounded-2xl w-80 h-25 mt-5">新規登録</button>
             </form>
         </div>
     )
