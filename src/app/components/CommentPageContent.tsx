@@ -28,10 +28,12 @@ export default function CommentPage() {
         console.log("WebSocket接続しました")
       });
       ws.addEventListener("close", () => {
-        console.log("WebSocket接続が切れました")
+        alert("切断されました。トップページへ戻ります");
+        router.push("/");
       });
       ws.addEventListener("error", (event) => {
-        console.log("WebSocketエラー: ", event)
+        alert("エラーが発生しました。トップページへ戻ります");
+        router.push("/")
       });
       ws.addEventListener("message", (event) => {
         const receivedComment: CommentItem = JSON.parse(event.data);
