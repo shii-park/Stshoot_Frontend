@@ -61,7 +61,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
     const isButtonDisabled = isSending || !userId || !socket || socket.readyState !== WebSocket.OPEN || (Date.now() - lastSentTime.current < 1000);
 
     return (
-        <div className="px-3 py-3 border-t bg-white/80 backdrop-blur">
+        <div className="px-3 py-3 border-t bg-white/80 backdrop-blur dark:bg-zinc-900">
             <div className="mx-auto flex items-center gap-2">
                 <input
                     value={text}

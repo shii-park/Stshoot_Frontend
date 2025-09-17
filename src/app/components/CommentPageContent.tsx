@@ -27,14 +27,13 @@ export default function CommentPage() {
       ws.addEventListener("open", () => {
         console.log("WebSocket接続しました")
       });
-      ws.addEventListener("close", () => {
-        alert("切断されました。トップページへ戻ります");
-        router.push("/");
+      /*ws.addEventListener("close", () => {
+        alert("切断されました。");
       });
       ws.addEventListener("error", (event) => {
         alert("エラーが発生しました。トップページへ戻ります");
         router.push("/")
-      });
+      }); */
       ws.addEventListener("message", (event) => {
         const receivedComment: CommentItem = JSON.parse(event.data);
         setComments((prevComments) => [...prevComments, receivedComment]);
@@ -66,7 +65,7 @@ export default function CommentPage() {
   const displayId = user.displayName || user.email || user.uid;
 
   return <div className="h-screen flex flex-col">
-    <div className="fixed top-20 left-0 w-full z-10 bg-white/80 backdrop-blur">
+    <div className="fixed top-20 left-0 w-full z-10 bg-white/80 backdrop-blur dark:bg-zinc-900">
       <div className="flex items-center gap-3 pt-2.5">
         <Link href="/" aria-label="戻る" className="rounded-full p-2 hover:bg-gray-100">
           <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 text-gray-600">
@@ -79,7 +78,7 @@ export default function CommentPage() {
           <span className="text-sm text-gray-500">@haisinnname</span>
         </div>
       </div>
-      <div className="text-lg mt-4 flex h-60 w-full items-center justify-center rounded bg-gray-200">thumbnail</div>
+      <div className="text-lg mt-4 flex h-60 w-full items-center justify-center rounded bg-gray-200 dark:bg-black">thumbnail</div>
     </div>
     <div ref={listRef} className="flex-1 mt-30 overflow-y-auto px-3 pt-[260px] pb-[100px]">
       <CommentList comments={comments} />
