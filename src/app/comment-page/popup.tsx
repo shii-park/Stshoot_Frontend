@@ -1,9 +1,10 @@
 'use client'
 import {useState,useEffect} from "react"
 import { useRouter } from "next/navigation";
-import Link from "next/link" //開発用、本番は削除予定
 export default function Transition(){
-
+    const [roomId,setRoomId]=useState<string|null>(null);
+    const [socketStatus,setSocketStatus]=useState("お待ちください...")
+    const router=useRouter();
 
     useEffect(()=>{
         const input=window.prompt("部屋番号を入力してください");
@@ -28,9 +29,6 @@ export default function Transition(){
 
     return (
         <div className="flex flex-col items-center">
-            <h2>{socketStatus}</h2>
-            <p>部屋番号:{roomId}</p>
-            <Link href="./comment-page"><p>コメントページへ移動(開発用)</p></Link>
         </div>
     )
 }
