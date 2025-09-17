@@ -41,7 +41,9 @@ export default function CommentPage() {
       });
 
       return () => {
-        wsRef.current?.close();
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.close();
+        }
       };
     } else {
       alert("キャンセルしました");
