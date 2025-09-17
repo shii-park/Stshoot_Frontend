@@ -3,7 +3,6 @@ import Link from "next/link"
 import {auth} from "@/lib//firebase"
 import {signInWithEmailAndPassword } from "firebase/auth";
 import React, {useState} from "react"
-import {useRouter} from "next/navigation"
 
 export default function Login(){
     const [email,setEmail]=useState("");
