@@ -3,7 +3,7 @@ export default function menuButton(){
 
     return (
 
-        <div className="bg-stone-500 text-white rounded-2xl px-5 py-3 mt-3 mr-2">
+        <div className="bg-zinc-700 text-white rounded-2xl px-5 py-3 mt-3 mr-2">
             <Link href="./login"><button>ログイン</button></Link>
         </div>
     )

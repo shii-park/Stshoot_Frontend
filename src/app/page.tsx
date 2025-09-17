@@ -19,7 +19,7 @@ export default function Home() {
   return (
       <div className="min-h-screen flex flex-col items-center">
         <div className="mt-50">
-          <p>こんにちは、<span className="text-cyan-500">{user?.displayName || "ゲスト"}</span>さん</p>
+          <p>こんにちは、<span className="text-neutral-500">{user?.displayName || "ゲスト"}</span>さん</p>
         </div>
         <div className="flex-grow flex flex-col justify-center items-center">
           <ToButton />

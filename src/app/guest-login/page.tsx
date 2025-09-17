@@ -22,7 +22,7 @@ export default function GuestLogin(){
     }
     return (
         <div className="flex flex-col items-center space-y-4 mb-10">
-                <form onSubmit={(e)=>handleGuestLogin(e)} className="flex flex-col items-center">
+                <form onSubmit={(e)=>handleGuestLogin(e)} className="flex flex-col items-center mt-100">
                     <input 
                     type="text" 
                     placeholder="名前を入力" 
@@ -30,7 +30,7 @@ export default function GuestLogin(){
                     onChange={(e)=>setUserName(e.target.value)} 
                     maxLength={6}
                     className="mb-5 text-3xl text-center border-2 rounded-2xl w-80 h-25" />
-                    <button type="submit" className="bg-stone-500 hover:bg-stone-400 text-white text-2xl rounded-2xl w-80 h-25">ゲストログイン</button>
+                    <button type="submit" className="bg-zinc-700 hover:bg-stone-400 text-white text-2xl rounded-2xl w-80 h-25">ゲストログイン</button>
                 </form>
         </div>
     )
