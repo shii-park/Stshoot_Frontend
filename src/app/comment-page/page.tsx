@@ -13,24 +13,43 @@ export default function CommentPage() {
   const {user, loading } = useAuth();
   const listRef = useRef<HTMLDivElement | null>(null);
   const roomId=searchParams.get("roomId");
-  const [socketStatus,setSocketStatus]=useState("");
-
+  const [socket, setSocket]=useState<WebSocket | null>(null);
+  const [comments, setComments] = useState<CommentItem[]>([]);
+  const wsRef = useRef<WebSocket | null>(null);
+  
   useEffect(()=>{
     if(roomId){ //roomIdがあればソケット通信開始
-      const socket=new WebSocket(`wss://stshoot-backend.onrender.com/ws/sender/${roomId}`);
-              socket.addEventListener("open", () => {
-                  setSocketStatus("オンライン");
-              });
-              socket.addEventListener("error", () => {
-                  setSocketStatus("オフライン");
-              }); 
-          }else{ //なければトップページに戻る
-              alert("キャンセルしました");
-              router.push("/");
-    }
-  },[])
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
+      const ws =new WebSocket(`wss://stshoot-backend.onrender.com/ws/sender/${roomId}`);
+      wsRef.current = ws;
+      
+      ws.addEventListener("open", () => {
+        console.log("WebSocket接続しました")
+      });
+      ws.addEventListener("close", () => {
+        console.log("WebSocket接続が切れました")
+      });
+      ws.addEventListener("error", (event) => {
+        console.log("WebSocketエラー: ", event)
+      });
+      ws.addEventListener("message", (event) => {
+        const receivedComment: CommentItem = JSON.parse(event.data);
+        setComments((prevComments) => [...prevComments, receivedComment]);
+      });
 
-  if (loading) {
+      setSocket(ws);
+      return () => {
+        ws.close();
+      };
+    } else {
+      alert("キャンセルしました");
+      router.push("/");
+    }
+  }, [roomId, router]);
+
+  if (loading || !user) {
     return <div className='p-4 text-center text-gray-500'>認証中...</div>
   }
 
@@ -51,7 +70,6 @@ export default function CommentPage() {
           <path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
         </svg>
       </Link>
-      <p>{socketStatus}</p>
       <div className="h-10 w-10 rounded-full bg-gray-300" />
       <div className="flex flex-col leading-tight">
         <span className="text-base font-medium">配信者名</span>
@@ -61,12 +79,13 @@ export default function CommentPage() {
     <div className="text-lg mt-4 flex h-60 w-full items-center justify-center rounded bg-gray-200">thumbnail</div>
 
     <div ref={listRef} className="flex-1 overflow-y-auto px-3 mt-3">
-      <CommentList />
+      <CommentList comments={comments} />
     </div>
 
     <CommentForm
       userId={user.uid}
       onSend={handleCommentSend}
+      socket={socket}
     />
   </div>;
 }
