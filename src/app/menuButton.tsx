@@ -9,7 +9,7 @@ export default function menuButton({open,onClick}:Props){
         <div>
             <button
             onClick={onClick}>
-                <img src="menuIcon.svg"/>
+                <img className="animate-rotate-in-2-ccw" src="menuIcon.svg"/>
             </button>
         </div>
     )
