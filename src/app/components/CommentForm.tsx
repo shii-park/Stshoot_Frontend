@@ -24,20 +24,19 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
 
         try {
             const newComment = {
-                userId: userId,
+                username: userId,
                 text: trimmed,
             };
             socket.send(JSON.stringify(newComment));
 
-            const tempComment: CommentItem = {
-                id: 'temp-id-' + Date.now(),
+            onSend({
+                id: 'temp-' + Date.now(),
                 userId: userId,
                 text: trimmed,
                 createdAt: new Date().toISOString(),
-            };
+            });
 
             setText("");
-            onSend(tempComment);;
         } catch (error) {
             console.error("コメントの送信エラー", error);
         } finally {
@@ -53,7 +52,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
     };
 
     return (
-        <div className="px-3 py-3 border-t bg-white/80 backdrop-blur">
+        <div className="px-3 py-3 border-t bg-white/80 backdrop-blur absolute bottom-0">
             <div className="mx-auto flex items-center gap-2">
                 <input
                     value={text}

@@ -59,9 +59,11 @@ export default function CommentPage() {
   }
 
   const handleCommentSend = (comment: CommentItem) => {
-    // 送信されたコメントとユーザーIDをアラートで表示
-    alert(`ユーザーID: ${comment.userId}\nコメント: ${comment.text}`);
+    setComments((prevComments) => [...prevComments, comment]);
   };
+
+  // const displayId = user.displayName || user.uid;
+  const displayId = user.displayName || user.email;
 
   return <div className="min-h-dvh flex flex-col">
     <div className="flex items-center gap-3 pt-2.5">
@@ -83,9 +85,9 @@ export default function CommentPage() {
     </div>
 
     <CommentForm
-      userId={user.uid}
+      userId={displayId as string}
       onSend={handleCommentSend}
-      socket={socket}
+      socket={wsRef.current}
     />
   </div>;
 }
