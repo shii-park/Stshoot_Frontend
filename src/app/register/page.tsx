@@ -21,7 +21,7 @@ export default function Register(){
         }
     };
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mt-30">
             <div className="text-2xl">
                 <p>新規登録</p>
             </div>
@@ -30,13 +30,15 @@ export default function Register(){
                 type="email" 
                 value={email} 
                 placeholder="メールアドレス" 
+                className="mb-5 text-3xl text-center border-2 rounded-2xl w-80 h-25"
                 onChange={(e)=>setEmail(e.target.value)}/>
                 <input 
                 type="password" 
                 value={password}
                 placeholder="パスワード"
+                className="mb-5 text-3xl text-center border-2 rounded-2xl w-80 h-25"
                 onChange={(e)=>setPassword(e.target.value)}/> 
-                <button type="submit">新規登録</button>
+                <button type="submit" className="bg-zinc-700 hover:bg-zinc-400 text-white text-2xl rounded-2xl w-80 h-25">新規登録</button>
             </form>
         </div>
     )
