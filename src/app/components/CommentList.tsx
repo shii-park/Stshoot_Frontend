@@ -34,7 +34,7 @@ export default function CommentList({ className }: CommentListProps) {
           id: doc.id,
           userId: data.userId,
           text: data.text,
-          createdAt: data.createAt?.toDate().toISOString() || "N/A", // TimestampをISO文字列に変換
+          createdAt: data.createdAt?.toDate().toISOString() || "N/A", // TimestampをISO文字列に変換
         });
       });
       setComments(fetchedComments);

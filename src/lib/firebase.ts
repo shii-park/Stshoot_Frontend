@@ -1,5 +1,5 @@
-import {initializeApp,getApps,getApp} from "firebase/app"
-import { getAuth,signInAnonymously,onAuthStateChanged} from "firebase/auth";
+import {initializeApp, getApps, getApp} from "firebase/app"
+import { getAuth, signInAnonymously, onAuthStateChanged} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig={
@@ -11,7 +11,7 @@ const firebaseConfig={
     appId: process.env.NEXT_PUBLIC_APP_ID,
     measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 }
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);

@@ -11,32 +11,40 @@ interface CommentFormProps {
     onSend: (comment: CommentItem) => void;
 }
 
+
 const CommentForm = ({ userId, onSend }: CommentFormProps) => {
-    const { user, loading } = useAuth();
     const [text, setText] = useState("");
     const [isSending, setIsSending] = useState(false);
 
     const handleSend = useCallback(async () => {
         const trimmed = text.trim();
-        if (!trimmed || isSending || !user) return;
+        if (!trimmed || isSending || !userId) return;
 
         setIsSending(true);
 
         try {
+            console.log("Firestoreへの書き込みを開始します...");
             await addDoc(collection(db, "comments"), {
-                userId: user.uid,
+                userId: userId,
                 text: trimmed,
                 createAt: serverTimestamp(),
             });
+            console.log("Firestoreへの書き込みが成功しました。");
 
-            
+            const newComment: CommentItem = {
+                id: 'temp-id-' + Date.now(),
+                userId: userId,
+                text: trimmed,
+                createdAt: new Date().toISOString(),
+            }
             setText("");
+            onSend(newComment);;
         } catch (error) {
             console.error("コメントの送信エラー", error);
         } finally {
             setIsSending(false);
         }
-    }, [text, isSending, user]);
+    }, [text, isSending, userId, onSend]);
 
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
@@ -44,14 +52,6 @@ const CommentForm = ({ userId, onSend }: CommentFormProps) => {
             handleSend();
         }
     };
-
-    if (loading) {
-        return (
-            <div className='p-4 text-center text-gray-500'>
-                認証中...
-            </div>
-        )
-    }
 
     return (
         <div className="px-3 py-3 border-t bg-white/80 backdrop-blur">
@@ -67,7 +67,7 @@ const CommentForm = ({ userId, onSend }: CommentFormProps) => {
                 <button
                     type="button"
                     onClick={handleSend}
-                    disabled={isSending || !user}
+                    disabled={isSending || !userId}
                     className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-300 text-gray-700 hover:bg-gray-400 disabled:opacity-50"
                     aria-label="送信"
                     title="送信"
