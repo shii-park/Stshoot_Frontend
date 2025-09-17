@@ -24,7 +24,7 @@ export default function toButton(){
                     onChange={(e)=>handleChange(e)} 
                     maxLength={6}
                     className="mb-5 text-3xl text-center border-2 rounded-2xl w-80 h-25" />
-                    <button type="submit" className="bg-stone-500 hover:bg-stone-400 text-white rounded-2xl w-80 h-25">コメントを投稿する！</button>
+                    <button type="submit" className="bg-stone-500 hover:bg-stone-400 text-white text-2xl rounded-2xl w-80 h-25">コメントを投稿する！</button>
                 </form>
         </div>
     )
