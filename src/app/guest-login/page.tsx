@@ -28,7 +28,6 @@ export default function GuestLogin(){
                     placeholder="名前を入力" 
                     value={userName} 
                     onChange={(e)=>setUserName(e.target.value)} 
-                    maxLength={6}
                     className="mb-5 text-3xl text-center border-2 rounded-2xl w-80 h-25" />
                     <button type="submit" className="bg-zinc-700 hover:bg-stone-400 text-white text-2xl rounded-2xl w-80 h-25">ゲストログイン</button>
                 </form>
