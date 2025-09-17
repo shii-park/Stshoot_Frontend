@@ -31,7 +31,7 @@ export default function CommentPage() {
   },[])
 
   if (loading) {
-    return <div>認証中...</div>
+    return <div className='p-4 text-center text-gray-500'>認証中...</div>
   }
 
   // 認証が完了し、userが存在しない場合に備える
