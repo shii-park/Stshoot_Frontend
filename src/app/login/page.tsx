@@ -49,7 +49,7 @@ export default function Login(){
                 <button className="flex flex-col border-2 text-center items-center justify-center text-2xl rounded-2xl w-80 h-25 mt-5">新規登録</button>
                 </Link>
                 <Link href="../guest-login">
-                <button className="bg-zinc-300 flex flex-col text-center items-center justify-center text-xl rounded-2xl w-80 h-10 mt-5">ゲストログイン</button>
+                <button className="bg-zinc-300 flex flex-col text-center items-center justify-center text-xl rounded-2xl w-80 h-10 mt-5 dark:bg-zinc-900">ゲストログイン</button>
                 </Link>
             </div>
         </div>
