@@ -18,7 +18,7 @@ export default function Login(){
             await updateProfile(user,{
                 displayName:user.email
             });
-            alert("ログインが完了しました！");
+            alert(`${user.displayName}さん、おかえりなさい！`);
             router.push("/");
         }catch(err){
             alert(err);

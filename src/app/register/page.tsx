@@ -14,7 +14,7 @@ export default function Register(){
         try{
             const userCredential=await createUserWithEmailAndPassword(auth,email,password);
             const user=userCredential.user;
-            alert("新規登録が完了しました！")
+            alert(`${user.email}さん、よろしくお願いします！`)
             router.push("../login");
         }catch(err){
             alert(err);
