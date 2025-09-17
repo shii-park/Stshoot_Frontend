@@ -17,7 +17,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
 
     const handleSend = useCallback(async () => {
         const trimmed = text.trim();
-        if (!trimmed || isSending || !userId || !socket || socket.readyState !== WebSocket.OPEN || lastSentTime.current < 1000) {
+        if (!trimmed || isSending || !userId || !socket || socket.readyState !== WebSocket.OPEN || (Date.now() - lastSentTime.current < 1000)) {
             return;
         }
 
