@@ -70,6 +70,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
                     placeholder="チャット"
                     className="flex-1 rounded-full border px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-gray-300"
                     aria-label="チャット入力"
+                    maxLength={20}
                 />
                 <button
                     type="button"
