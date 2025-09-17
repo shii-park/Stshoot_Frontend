@@ -1,5 +1,5 @@
 import {initializeApp, getApps, getApp} from "firebase/app"
-import { getAuth, signInAnonymously, onAuthStateChanged} from "firebase/auth";
+import { getAuth} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig={
@@ -15,15 +15,3 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    signInAnonymously(auth)
-      .then(() => {
-        console.log("匿名ユーザーでログインしました");
-      })
-      .catch((error) => {
-        console.error("匿名サインインエラー:", error);
-      });
-  }
-});
