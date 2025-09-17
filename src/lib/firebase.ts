@@ -1,5 +1,6 @@
 import {initializeApp,getApps,getApp} from "firebase/app"
 import { getAuth,signInAnonymously,onAuthStateChanged} from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig={
     apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -13,6 +14,7 @@ const firebaseConfig={
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 
 onAuthStateChanged(auth, (user) => {
   if (!user) {
