@@ -15,18 +15,21 @@ export default function CommentPage() {
   const roomId=searchParams.toString();
   const [socketStatus,setSocketStatus]=useState("");
 
-  if(roomId){ //roomIdがあればソケット通信開始
-    const socket=new WebSocket(`wss://stshoot-backend.onrender.com/ws/sender/${roomId}`);
-            socket.addEventListener("open", () => {
-                setSocketStatus("オンライン");
-            });
-            socket.addEventListener("error", () => {
-                setSocketStatus("オフライン");
-            }); 
-        }else{ //なければトップページに戻る
-            alert("キャンセルしました");
-            router.push("/");
-  }
+  useEffect(()=>{
+    if(roomId){ //roomIdがあればソケット通信開始
+      const socket=new WebSocket(`wss://stshoot-backend.onrender.com/ws/sender/${roomId}`);
+              socket.addEventListener("open", () => {
+                  setSocketStatus("オンライン");
+              });
+              socket.addEventListener("error", () => {
+                  setSocketStatus("オフライン");
+              }); 
+          }else{ //なければトップページに戻る
+              alert("キャンセルしました");
+              router.push("/");
+    }
+  },)
+
   if (loading) {
     return <div>認証中...</div>
   }
