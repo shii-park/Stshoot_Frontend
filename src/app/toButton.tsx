@@ -1,7 +1,7 @@
 'use client'
 import React, {useState} from "react"
 import {useRouter} from "next/navigation";
-export default function toButton(){
+export default function ToButton(){
     const [roomId,setRoomId]=useState<string>("");
     const router=useRouter();
     const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
