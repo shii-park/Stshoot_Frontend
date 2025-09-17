@@ -15,10 +15,15 @@ export default function CommentPage() {
   const roomId=searchParams.get("roomId");
   const [socket, setSocket]=useState<WebSocket | null>(null);
   const [comments, setComments] = useState<CommentItem[]>([]);
+  const wsRef = useRef<WebSocket | null>(null);
   
   useEffect(()=>{
     if(roomId){ //roomIdがあればソケット通信開始
+      if (wsRef.current) {
+        wsRef.current.close();
+      }
       const ws =new WebSocket(`wss://stshoot-backend.onrender.com/ws/sender/${roomId}`);
+      wsRef.current = ws;
       
       ws.addEventListener("open", () => {
         console.log("WebSocket接続しました")
