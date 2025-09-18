@@ -8,10 +8,11 @@ interface CommentFormProps {
     userId: string;
     onSend: (comment: CommentItem) => void;
     socket: WebSocket | null;
+    onSuperChatModalOpen: (isOpen: boolean) => void;
 }
 
 
-const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
+const CommentForm = ({ userId, onSend, socket, onSuperChatModalOpen }: CommentFormProps) => {
     const [text, setText] = useState("");
     const [isSending, setIsSending] = useState(false);
     const lastSentTime = useRef<number>(0); 
@@ -50,26 +51,10 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
         }
     }, [text, isSending, userId, onSend, socket]);
 
-    const handleSuperChat = useCallback((price: number, message: string) => {
-        if (!userId || !socket || socket.readyState !== WebSocket.OPEN) {
-          return;
-        }
-        const superChatComment = {
-          username: userId,
-          text: message,
-          price, // 金額を追加
-        };
-        socket.send(JSON.stringify(superChatComment));
-        // ローカルのコメントリストに即時反映
-        onSend({
-          id: 'superchat-' + Date.now(),
-          userId: userId,
-          text: message,
-          createdAt: new Date().toISOString(),
-          price,
-          username: userId,
-        });
-      }, [userId, socket, onSend]);
+    // SuperChatButtonのクリック時に親の関数を呼び出す
+    const handleSuperChat = useCallback(() => {
+        onSuperChatModalOpen(true);
+    }, [onSuperChatModalOpen]);
 
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.nativeEvent.isComposing) {
@@ -91,7 +76,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     onKeyDown={onKeyDown}
-                    placeholder="チャット"
+                    placeholder="チャット（20文字以内）"
                     className="flex-1 rounded-full border px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-gray-300"
                     aria-label="チャット入力"
                     maxLength={20}
@@ -106,7 +91,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
                 >
                     ↩
                 </button>
-                <SuperChatButton onSuperChat={handleSuperChat} />
+                <SuperChatButton onOpenModal={handleSuperChat} />
             </div>
         </div>
     );
