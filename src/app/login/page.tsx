@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link"
 import {auth} from "@/lib//firebase"
-import {signInWithEmailAndPassword,updateProfile } from "firebase/auth";
+import {signInWithEmailAndPassword} from "firebase/auth";
 import React, {useState} from "react"
 import { useRouter } from "next/navigation";
 
@@ -15,9 +15,6 @@ export default function Login(){
         try{
             const userCredential=await signInWithEmailAndPassword(auth,email,password);
             const user=userCredential.user;
-            await updateProfile(user,{
-                displayName:user.email
-            });
             alert(`${user.displayName}さん、おかえりなさい！`);
             router.push("/");
         }catch(err){

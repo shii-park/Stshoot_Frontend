@@ -1,12 +1,13 @@
 'use client'
 import {auth} from "@/lib//firebase"
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
 import React, {useState} from "react"
 import {useRouter} from "next/navigation"
 
 export default function Register(){
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
+    const [name,setName]=useState("")
     const router=useRouter()
 
     const handleRegister=async(e:React.FormEvent)=>{
@@ -14,7 +15,10 @@ export default function Register(){
         try{
             const userCredential=await createUserWithEmailAndPassword(auth,email,password);
             const user=userCredential.user;
-            alert(`${user.email}さん、よろしくお願いします！`)
+            await updateProfile(user,{
+                displayName:name
+            });
+            alert(`${user.displayName}さん、よろしくお願いします！`)
             router.push("../login");
         }catch(err){
             alert(err);
@@ -27,10 +31,17 @@ export default function Register(){
             </div>
             <form className="flex flex-col items-center " onSubmit={handleRegister}>
                 <input 
+                type="string" 
+                value={name} 
+                placeholder="名前" 
+                required
+                className="border-2 text-xl text-center rounded-full mt-60 w-75 h-15"
+                onChange={(e)=>setName(e.target.value)}/>
+                <input 
                 type="email" 
                 value={email} 
                 placeholder="メールアドレス" 
-                className="border-2 text-xl text-center rounded-full mt-60 w-75 h-15"
+                className="border-2 text-xl text-center rounded-full mt-5 w-75 h-15"
                 onChange={(e)=>setEmail(e.target.value)}/>
                 <input 
                 type="password" 
