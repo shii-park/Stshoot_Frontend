@@ -19,7 +19,7 @@ export default function ToButton(){
                 <form onSubmit={handleSubmit} className="flex flex-col items-center">
                     <input 
                     type="text" 
-                    placeholder="ROOM NUMBER" 
+                    placeholder="ROOM ID" 
                     value={roomId} 
                     onChange={(e)=>handleChange(e)} 
                     maxLength={6}
