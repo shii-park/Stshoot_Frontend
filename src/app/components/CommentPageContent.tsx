@@ -120,7 +120,13 @@ export default function CommentPage() {
                             <span className="text-sm text-gray-500">@haisinnname</span>
                         </div>
                     </div>
-                    <div className="text-lg mt-4 flex h-60 w-full items-center justify-center rounded bg-gray-200 dark:bg-black">thumbnail</div>
+                    <div className="relative" style={{ paddingTop: "56.25%" }}>
+                      <iframe
+                        src="https://player-api.p.uliza.jp/v1/players/autoplay/tsg/admin?type=normal&name=content-2025-09-18-12-32-06-280-f6dd73cc&repeatable=true&format=iframe&plusScript=false&customOption=%7B%22fullscreenType%22%3A%22native%22%2C%22videoAnalytics%22%3A%7B%22userId%22%3A%22%5BGAUSERID%5D%22%7D%7D"                        className="absolute top-0 left-0 w-full h-full"
+                        style={{ border: "none" }}
+                        allowFullScreen
+                      />
+                    </div>
                 </div>
                 <div ref={listRef} className="flex-1 mt-30 overflow-y-auto px-3 pt-[260px] pb-[100px]">
                     <CommentList comments={comments} />
