@@ -13,7 +13,7 @@ export default function MenuButton(){
             alert("ログアウトに失敗しました");
         }
     };
-    
+
     if(loading){
         return(
             <div className="bg-zinc-700 text-white rounded-2xl px-5 py-3 mt-3 mr-2">
@@ -23,7 +23,7 @@ export default function MenuButton(){
     }
     if(user?.email){
         return(
-            <div className=" border-2 rounded-2xl px-5 py-3 mt-3 mr-2">
+            <div className=" border-2 rounded-full px-5 py-3 mt-3 mr-2">
                 <button onClick={handleSignOut}>ログアウト</button>
             </div>
         );
@@ -31,7 +31,7 @@ export default function MenuButton(){
 
     return (
 
-        <div className="bg-zinc-700 text-white rounded-2xl px-5 py-3 mt-3 mr-2">
+        <div className="bg-zinc-700 text-white rounded-full px-5 py-3 mt-3 mr-2">
             <Link href="./login"><button>ログイン</button></Link>
         </div>
     )

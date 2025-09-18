@@ -34,22 +34,22 @@ export default function Login(){
                 type="email" 
                 value={email} 
                 placeholder="ユーザ名" 
-                className=" border-2 text-xl text-center rounded-2xl sm:mt-5 md:mt-40 w-75 h-15"
+                className=" border-2 text-xl text-center rounded-full mt-40 w-4/5 h-15"
                 onChange={(e)=>setEmail(e.target.value)}/>
                 <input 
                 type="password" 
                 value={password} 
                 placeholder="パスワード" 
-                className="border-2 text-xl text-center rounded-2xl mt-5 w-75 h-15"
+                className="border-2 text-xl text-center rounded-full mt-5 w-4/5 h-15"
                 onChange={(e)=>setPassword(e.target.value)}/> 
-                <button type="submit" className="bg-zinc-700 hover:bg-stone-400 text-white text-2xl rounded-2xl w-80 h-25 mt-10">ログイン</button>
+                <button type="submit" className="bg-zinc-700 hover:bg-stone-400 text-white text-2xl rounded-full w-80 h-25 mt-10">ログイン</button>
             </form>
             <div>
                 <Link href="../register">
-                <button className="flex flex-col border-2 text-center items-center justify-center text-2xl rounded-2xl w-80 h-25 mt-5">新規登録</button>
+                <button className="flex flex-col border-2 text-center items-center justify-center text-2xl rounded-full w-80 h-25 mt-5">新規登録</button>
                 </Link>
                 <Link href="../guest-login">
-                <button className="bg-zinc-300 flex flex-col text-center items-center justify-center text-xl rounded-2xl w-80 h-10 mt-5 mb-10 dark:bg-zinc-900 ">ゲストログイン</button>
+                <button className="bg-zinc-300 flex flex-col text-center items-center justify-center text-xl rounded-full w-80 h-15 mt-5 mb-10 dark:bg-zinc-900 ">ゲストログイン</button>
                 </Link>
             </div>
         </div>

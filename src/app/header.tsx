@@ -11,7 +11,7 @@ export default function Header(){
     };
 
     return (
-        <div className="fixed top-0 left-0 w-full flex box-border h-20 border-b-2 bg-white dark:bg-black">
+        <div className="fixed top-0 left-0 w-full flex box-border h-20 border-b-2 bg-zinc-100 dark:bg-zinc-800">
               <div className="mt-5 ml-5 text-2xl md:ml-10 md:text-lg lg:ml-10 lg:text-5xl"> {/*クラスは修正予定*/}
                 <Link href="/">
                   <h1>StShoot</h1>
