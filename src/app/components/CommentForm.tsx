@@ -26,8 +26,9 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
 
         try {
             const newComment = {
-                displayName: userId,
+                username: userId,
                 text: trimmed,
+                price: 0,
             };
             socket.send(JSON.stringify(newComment));
 
@@ -36,7 +37,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
                 userId: userId,
                 text: trimmed,
                 createdAt: new Date().toISOString(),
-                displayName: userId,
+                username: userId,
             });
 
             setText("");
@@ -49,14 +50,14 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
         }
     }, [text, isSending, userId, onSend, socket]);
 
-    const handleSuperChat = useCallback((amount: number, message: string) => {
+    const handleSuperChat = useCallback((price: number, message: string) => {
         if (!userId || !socket || socket.readyState !== WebSocket.OPEN) {
           return;
         }
         const superChatComment = {
-          displayName: userId,
+          username: userId,
           text: message,
-          amount, // 金額を追加
+          price: price, // 金額を追加
         };
         socket.send(JSON.stringify(superChatComment));
         // ローカルのコメントリストに即時反映
@@ -65,8 +66,8 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
           userId: userId,
           text: message,
           createdAt: new Date().toISOString(),
-          amount,
-          displayName: userId,
+          price,
+          username: userId,
         });
       }, [userId, socket, onSend]);
 
