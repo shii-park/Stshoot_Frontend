@@ -3,22 +3,22 @@
 import  React, { useCallback, useState, useRef } from 'react';
 
 interface SuperChatButtonProps {
-    onSuperChat: (amount: number, message: string) => void;
+    onSuperChat: (price: number, message: string) => void;
 }
 
 export default function SuperChatButton({ onSuperChat }: SuperChatButtonProps) {
-  const [amount, setAmount] = useState<number | ''>('');
+  const [price, setPrice] = useState<number | ''>('');
   const [message, setMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSuperChat = useCallback(() => {
-    if (amount && amount > 0) {
-      onSuperChat(Number(amount), message);
-      setAmount('');
+    if (price && price > 0) {
+      onSuperChat(Number(price), message);
+      setPrice('');
       setMessage('');
       setIsModalOpen(false);
     }
-  }, [amount, message, onSuperChat]);
+  }, [price, message, onSuperChat]);
 
   return (
     <>
@@ -37,12 +37,12 @@ export default function SuperChatButton({ onSuperChat }: SuperChatButtonProps) {
           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
             <h2 className="text-xl font-bold mb-4">投げ銭する</h2>
             <div className="mb-4">
-              <label htmlFor="amount" className="block text-sm font-medium text-gray-700">金額 (円)</label>
+              <label htmlFor="price" className="block text-sm font-medium text-gray-700">金額 (円)</label>
               <input
                 type="number"
-                id="amount"
-                value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
+                id="price"
+                value={price}
+                onChange={(e) => setPrice(Number(e.target.value))}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>
@@ -68,7 +68,7 @@ export default function SuperChatButton({ onSuperChat }: SuperChatButtonProps) {
               <button
                 type="button"
                 onClick={handleSuperChat}
-                disabled={!amount || amount <= 0}
+                disabled={!price || price <= 0}
                 className="px-4 py-2 text-sm font-medium text-white bg-yellow-500 rounded-md hover:bg-yellow-600 disabled:opacity-50"
               >
                 投げ銭する

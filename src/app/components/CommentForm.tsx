@@ -57,7 +57,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
         const superChatComment = {
           username: userId,
           text: message,
-          price: price, // 金額を追加
+          price, // 金額を追加
         };
         socket.send(JSON.stringify(superChatComment));
         // ローカルのコメントリストに即時反映

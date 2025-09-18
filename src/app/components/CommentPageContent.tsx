@@ -34,7 +34,7 @@ export default function CommentPage() {
         console.log(`error!*${event}`);
         ws.close();
         alert("エラーが発生しました。部屋番号を確認してください。\nトップページへ戻ります。");
-        router.push("/") //テスト時はここをコメントアウト
+        //router.push("/") //テスト時はここをコメントアウト
       }); 
       ws.addEventListener("message", (event) => {
         const receivedComment: CommentItem = JSON.parse(event.data);
