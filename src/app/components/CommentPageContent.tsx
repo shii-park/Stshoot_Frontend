@@ -120,14 +120,15 @@ export default function CommentPage() {
                             <span className="text-sm text-gray-500">@haisinnname</span>
                         </div>
                     </div>
-                    {/* 修正箇所: 動画を配置。元のpt-[260px]の代わり */}
-                    <div className="relative mt-4" style={{ paddingTop: "56.25%" }}>
+                    <div className="w-full max-w-2xl mx-auto mt-8">
+                      <div className="relative" style={{ paddingTop: "56.25%" }}>
                         <iframe
-                            src="https://player-api.p.uliza.jp/v1/players/autoplay/tsg/admin?type=normal&name=content-2025-09-18-12-32-06-280-f6dd73cc&repeatable=true&format=iframe&plusScript=false&customOption=%7B%22fullscreenType%22%3A%22native%22%2C%22videoAnalytics%22%3A%7B%22userId%22%3A%22%5BGAUSERID%5D%22%7D%7D"
-                            className="absolute top-0 left-0 w-full h-full"
-                            style={{ border: "none" }}
-                            allowFullScreen
+                          src="https://player-api.p.uliza.jp/v1/players/autoplay/tsg/admin?type=normal&name=content-2025-09-18-12-32-06-280-f6dd73cc&repeatable=true&format=iframe&plusScript=false&customOption=%7B%22fullscreenType%22%3A%22native%22%2C%22videoAnalytics%22%3A%7B%22userId%22%3A%22%5BGAUSERID%5D%22%7D%7D"
+                          className="absolute top-0 left-0 w-full h-full"
+                          style={{ border: "none" }}
+                          allowFullScreen
                         />
+                      </div>
                     </div>
                 </div>
                 {/* 修正箇所: flex-1で残りの高さを埋め、オーバーフローでスクロール可能にする */}
