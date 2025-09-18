@@ -23,8 +23,8 @@ export default function ToButton(){
                     value={roomId} 
                     onChange={(e)=>handleChange(e)} 
                     maxLength={6}
-                    className="mb-5 text-3xl text-center border-2 rounded-2xl w-80 h-25" />
-                    <button type="submit" className="bg-zinc-700 hover:bg-zinc-400 text-white text-2xl rounded-2xl w-80 h-25">コメントを投稿する！</button>
+                    className="mb-5 text-3xl text-center border-2 rounded-full w-80 h-25" />
+                    <button type="submit" className="bg-zinc-700 hover:bg-zinc-400 text-white text-2xl rounded-full w-80 h-25">コメントを投稿する！</button>
                 </form>
         </div>
     )

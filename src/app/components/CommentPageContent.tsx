@@ -27,13 +27,15 @@ export default function CommentPage() {
       ws.addEventListener("open", () => {
         console.log("WebSocket接続しました")
       });
-      /*ws.addEventListener("close", () => {
-        alert("切断されました。");
+      ws.addEventListener("close", () => {
+        console.log("closed")
       });
       ws.addEventListener("error", (event) => {
+        console.log(`error!*${event}`)
+        ws.close();
         alert("エラーが発生しました。トップページへ戻ります");
-        router.push("/")
-      }); */
+        router.push("/") 
+      }); 
       ws.addEventListener("message", (event) => {
         const receivedComment: CommentItem = JSON.parse(event.data);
         setComments((prevComments) => [...prevComments, receivedComment]);
@@ -48,7 +50,7 @@ export default function CommentPage() {
       alert("キャンセルしました");
       router.push("/");
     }
-  }, [roomId, router]);
+  }, [roomId]);
 
   if (loading || !user) {
     return <div className='p-4 text-center text-gray-500'>認証中...</div>
@@ -85,7 +87,6 @@ export default function CommentPage() {
     <div ref={listRef} className="flex-1 mt-30 overflow-y-auto px-3 pt-[260px] pb-[100px]">
       <CommentList comments={comments} />
     </div>
-
     <div className="fixed bottom-0 left-0 w-full z-10">
       <CommentForm
         userId={displayId as string}

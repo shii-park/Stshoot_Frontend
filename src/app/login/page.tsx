@@ -26,7 +26,7 @@ export default function Login(){
     }
     return(
         <div className="flex flex-col items-center">
-            <div className="text-xl mt-10">
+            <div className="text-xl mt-20">
                 <p>ログインして配信に参加しよう！</p>
             </div>
             <form className="flex flex-col items-center" onSubmit={handleLogin}>
@@ -34,7 +34,7 @@ export default function Login(){
                 type="email" 
                 value={email} 
                 placeholder="ユーザ名" 
-                className=" border-2 text-xl text-center rounded-2xl mt-40 w-75 h-15"
+                className=" border-2 text-xl text-center rounded-2xl sm:mt-5 md:mt-40 w-75 h-15"
                 onChange={(e)=>setEmail(e.target.value)}/>
                 <input 
                 type="password" 
@@ -49,7 +49,7 @@ export default function Login(){
                 <button className="flex flex-col border-2 text-center items-center justify-center text-2xl rounded-2xl w-80 h-25 mt-5">新規登録</button>
                 </Link>
                 <Link href="../guest-login">
-                <button className="bg-zinc-300 flex flex-col text-center items-center justify-center text-xl rounded-2xl w-80 h-10 mt-5 dark:bg-zinc-900">ゲストログイン</button>
+                <button className="bg-zinc-300 flex flex-col text-center items-center justify-center text-xl rounded-2xl w-80 h-10 mt-5 mb-10 dark:bg-zinc-900 ">ゲストログイン</button>
                 </Link>
             </div>
         </div>
