@@ -2,6 +2,7 @@
 
 import React, { useCallback, useState, useRef } from 'react';
 import { type CommentItem } from "@/app/components/CommentList";
+import SuperChatButton from './SuperChatButton';
 
 interface CommentFormProps {
     userId: string;
@@ -25,17 +26,17 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
 
         try {
             const newComment = {
-                userId: userId,
+                displayName: userId,
                 text: trimmed,
             };
             socket.send(JSON.stringify(newComment));
 
             onSend({
-                id: 'temp-' + Date.now(),
+                id: `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
                 userId: userId,
-                displayId: userId,
                 text: trimmed,
                 createdAt: new Date().toISOString(),
+                displayName: userId,
             });
 
             setText("");
@@ -47,6 +48,27 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
             setIsSending(false);
         }
     }, [text, isSending, userId, onSend, socket]);
+
+    const handleSuperChat = useCallback((amount: number, message: string) => {
+        if (!userId || !socket || socket.readyState !== WebSocket.OPEN) {
+          return;
+        }
+        const superChatComment = {
+          displayName: userId,
+          text: message,
+          amount, // 金額を追加
+        };
+        socket.send(JSON.stringify(superChatComment));
+        // ローカルのコメントリストに即時反映
+        onSend({
+          id: 'superchat-' + Date.now(),
+          userId: userId,
+          text: message,
+          createdAt: new Date().toISOString(),
+          amount,
+          displayName: userId,
+        });
+      }, [userId, socket, onSend]);
 
     const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.nativeEvent.isComposing) {
@@ -83,15 +105,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
                 >
                     ↩
                 </button>
-                <button
-                    type="button"
-                    onClick={() => { /* 仮置き: スーパーチャット送信 */ }}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-yellow-300 text-yellow-900 hover:bg-yellow-400"
-                    aria-label="スーパーチャット"
-                    title="スーパーチャット（仮）"
-                >
-                    ¥
-                </button>
+                <SuperChatButton onSuperChat={handleSuperChat} />
             </div>
         </div>
     );
