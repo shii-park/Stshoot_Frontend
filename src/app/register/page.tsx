@@ -35,21 +35,21 @@ export default function Register(){
                 value={name} 
                 placeholder="名前" 
                 required
-                className="border-2 text-xl text-center rounded-full mt-60 w-75 h-15"
+                className="border-2 text-lg text-center rounded-full mt-40 w-4/5 h-15"
                 onChange={(e)=>setName(e.target.value)}/>
                 <input 
                 type="email" 
                 value={email} 
                 placeholder="メールアドレス" 
-                className="border-2 text-xl text-center rounded-full mt-5 w-75 h-15"
+                className="border-2 text-lg text-center rounded-full mt-5 w-4/5 h-15"
                 onChange={(e)=>setEmail(e.target.value)}/>
                 <input 
                 type="password" 
                 value={password}
                 placeholder="パスワード"
-                className="border-2 text-xl text-center rounded-full mt-5 w-75 h-15"
+                className="border-2 text-lg text-center rounded-full mt-5 w-4/5 h-15"
                 onChange={(e)=>setPassword(e.target.value)}/> 
-                <button type="submit" className="bg-zinc-700 hover:bg-zinc-400 text-white text-2xl rounded-full w-80 h-25 mt-5">新規登録</button>
+                <button type="submit" className="bg-zinc-700 hover:bg-zinc-400 text-white text-2xl rounded-full w-70 h-20 mt-5">新規登録</button>
             </form>
         </div>
     )

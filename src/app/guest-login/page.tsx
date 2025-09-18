@@ -28,8 +28,8 @@ export default function GuestLogin(){
                     placeholder="名前を入力" 
                     value={userName} 
                     onChange={(e)=>setUserName(e.target.value)} 
-                    className="mb-5 text-3xl text-center border-2 rounded-full w-80 h-25" />
-                    <button type="submit" className="bg-zinc-700 hover:bg-stone-400 text-white text-2xl rounded-full w-80 h-25">ゲストログイン</button>
+                    className="mb-5 text-lg text-center border-2 rounded-full w-4/5 h-20" />
+                    <button type="submit" className="bg-zinc-700 hover:bg-stone-400 text-white text-2xl rounded-full w-70 h-20">ゲストログイン</button>
                 </form>
         </div>
     )
