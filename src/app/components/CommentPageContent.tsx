@@ -88,6 +88,7 @@ export default function CommentPage() {
         };
         wsRef.current.send(JSON.stringify(superChatComment));
         
+        // ローカルのコメントリストに即時反映
         handleCommentSend({
             id: 'superchat-' + Date.now(),
             userId: user.uid,
@@ -96,19 +97,18 @@ export default function CommentPage() {
             price,
             username: user.displayName,
         });
-        setIsSuperChatModalOpen(false);
+        setIsSuperChatModalOpen(false); // 送信後にモーダルを閉じる
     };
 
     const displayId = user.displayName || "ゲスト";
 
-    const mainContainerClasses = `flex flex-col h-screen ${isSuperChatModalOpen ? 'blur-sm' : ''}`;
+    const mainContainerClasses = `h-screen flex flex-col ${isSuperChatModalOpen ? 'blur-sm' : ''}`;
 
     return (
         <div className="relative h-screen flex flex-col">
             <div className={mainContainerClasses}>
-                {/* 修正箇所: ヘッダーと動画をまとめたコンテナ。fixedを削除し、z-10は維持 */}
-                <div className="w-full z-10 bg-white/80 backdrop-blur dark:bg-zinc-900">
-                    <div className="flex items-center gap-3 pt-2.5 px-3">
+                <div className="fixed top-20 left-0 w-full z-10 bg-white/80 backdrop-blur dark:bg-zinc-900">
+                    <div className="flex items-center gap-3 pt-2.5">
                         <Link href="/" aria-label="戻る" className="rounded-full p-2 hover:bg-gray-100">
                             <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5 text-gray-600">
                                 <path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
@@ -120,21 +120,17 @@ export default function CommentPage() {
                             <span className="text-sm text-gray-500">@haisinnname</span>
                         </div>
                     </div>
-                    {/* 修正箇所: 動画を配置。元のpt-[260px]の代わり */}
-                    <div className="relative mt-4" style={{ paddingTop: "56.25%" }}>
-                        <iframe
-                            src="https://player-api.p.uliza.jp/v1/players/autoplay/tsg/admin?type=normal&name=content-2025-09-18-12-32-06-280-f6dd73cc&repeatable=true&format=iframe&plusScript=false&customOption=%7B%22fullscreenType%22%3A%22native%22%2C%22videoAnalytics%22%3A%7B%22userId%22%3A%22%5BGAUSERID%5D%22%7D%7D"
-                            className="absolute top-0 left-0 w-full h-full"
-                            style={{ border: "none" }}
-                            allowFullScreen
-                        />
+                    <div className="relative" style={{ paddingTop: "56.25%" }}>
+                      <iframe
+                        src="https://player-api.p.uliza.jp/v1/players/autoplay/tsg/admin?type=normal&name=content-2025-09-18-12-32-06-280-f6dd73cc&repeatable=true&format=iframe&plusScript=false&customOption=%7B%22fullscreenType%22%3A%22native%22%2C%22videoAnalytics%22%3A%7B%22userId%22%3A%22%5BGAUSERID%5D%22%7D%7D"                        className="absolute top-0 left-0 w-full h-full"
+                        style={{ border: "none" }}
+                        allowFullScreen
+                      />
                     </div>
                 </div>
-                {/* 修正箇所: flex-1で残りの高さを埋め、オーバーフローでスクロール可能にする */}
-                <div ref={listRef} className="flex-1 overflow-y-auto px-3 py-3">
+                <div ref={listRef} className="flex-1 mt-30 overflow-y-auto px-3 pt-[260px] pb-[100px]">
                     <CommentList comments={comments} />
                 </div>
-                {/* コメントフォームはfixedを維持 */}
                 <div className="fixed bottom-0 left-0 w-full z-10">
                     <CommentForm
                         userId={displayId as string}
