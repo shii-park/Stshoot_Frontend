@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 export type CommentItem = {
   id: string;
   userId: string;
+  displayId: string,
   text: string;
   createdAt: string; // FirestoreのTimestamp型を考慮
 };
@@ -13,6 +14,7 @@ type CommentListProps = {
   className?: string;
   comments: CommentItem[];
 };
+
 
 export default function CommentList({ className, comments }: CommentListProps) {
   return (
