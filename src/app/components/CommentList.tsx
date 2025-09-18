@@ -7,8 +7,8 @@ export type CommentItem = {
   userId: string;
   text: string;
   createdAt: string; // FirestoreのTimestamp型を考慮
-  amount?: number;
-  displayName?: string;
+  price?: number;
+  username?: string;
 };
 
 type CommentListProps = {
@@ -24,12 +24,12 @@ export default function CommentList({ className, comments }: CommentListProps) {
         <div key={c.id} className="flex items-start gap-3 py-3">
           <div className="h-6 w-6 rounded bg-gray-300" />
           <div className="min-w-0">
-            {c.amount && (
+            {c.price && (
               <div className="text-yellow-500 font-bold text-sm">
-                ¥{c.amount.toLocaleString()}
+                ¥{c.price.toLocaleString()}
               </div>
             )}
-            <div className="text-xs text-gray-500">{c.displayName}</div>
+            <div className="text-xs text-gray-500">{c.username}</div>
             <div className="text-sm break-words">{c.text}</div>
           </div>
         </div>

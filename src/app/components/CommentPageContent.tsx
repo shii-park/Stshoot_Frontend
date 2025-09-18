@@ -66,8 +66,7 @@ export default function CommentPage() {
     setComments((prevComments) => [...prevComments, comment]);
   };
 
-  // const displayId = user.displayName || user.uid;
-  const displayId = user.displayName || user.email || user.uid;
+  const displayId = user.displayName || "ゲスト";
 
   return <div className="h-screen flex flex-col">
     <div className="fixed top-20 left-0 w-full z-10 bg-white/80 backdrop-blur dark:bg-zinc-900">
