@@ -29,6 +29,8 @@ export default function CommentPage() {
     };
     const handleClose = () => {
       console.log("closed");
+      alert("配信が終了しました。\nトップページへ戻ります");
+      router.push("/")
     };
     const handleError = (event: Event) => {
       console.log(`error!*${event}`);
