@@ -16,41 +16,48 @@ export default function CommentPage() {
   const [comments, setComments] = useState<CommentItem[]>([]);
   const wsRef = useRef<WebSocket | null>(null);
   
-  useEffect(()=>{
-    if(roomId){ //roomIdがあればソケット通信開始
-      if (wsRef.current) {
-        wsRef.current.close();
-      }
-      const ws =new WebSocket(`wss://stshoot-backend.onrender.com/ws/sender/${roomId}`);
-      wsRef.current = ws;
-      
-      ws.addEventListener("open", () => {
-        console.log("WebSocket接続しました");
-      });
-      ws.addEventListener("close", () => {
-        console.log("closed");
-      });
-      ws.addEventListener("error", (event) => {
-        console.log(`error!*${event}`);
-        ws.close();
-        alert("エラーが発生しました。部屋番号を確認してください。\nトップページへ戻ります。");
-        //router.push("/") //テスト時はここをコメントアウト
-      }); 
-      ws.addEventListener("message", (event) => {
-        const receivedComment: CommentItem = JSON.parse(event.data);
-        setComments((prevComments) => [...prevComments, receivedComment]);
-      });
-
-      return () => {
-        if (ws.readyState === WebSocket.OPEN) {
-          ws.close();
-        }
-      };
-    } else {
-      alert("キャンセルしました");
-      router.push("/");
+  useEffect(() => {
+  if (roomId) {
+    if (wsRef.current) {
+      wsRef.current.close();
     }
-  }, [roomId]);
+    const ws = new WebSocket(`wss://stshoot-backend.onrender.com/ws/sender/${roomId}`);
+    wsRef.current = ws;
+
+    const handleOpen = () => {
+      console.log("connected!");
+    };
+    const handleClose = () => {
+      console.log("closed");
+    };
+    const handleError = (event: Event) => {
+      console.log(`error!*${event}`);
+      ws.close();
+      alert("エラーが発生しました。部屋番号を確認してください。\nトップページへ戻ります。");
+      /*router.push("/"); */
+    };
+    const handleMessage = (event: MessageEvent) => {
+      const receivedComment: CommentItem = JSON.parse(event.data);
+      setComments((prevComments) => [...prevComments, receivedComment]);
+    };
+
+    ws.addEventListener("open", handleOpen);
+    ws.addEventListener("close", handleClose);
+    ws.addEventListener("error", handleError);
+    ws.addEventListener("message", handleMessage);
+
+    return () => {
+      ws.removeEventListener("open", handleOpen);
+      ws.removeEventListener("close", handleClose);
+      ws.removeEventListener("error", handleError);
+      ws.removeEventListener("message", handleMessage);
+      ws.close(); // 状態に関係なく必ずclose
+    };
+  } else {
+    alert("キャンセルしました");
+    router.push("/");
+  }
+}, [roomId]);
 
   if (loading || !user) {
     return <div className='p-4 text-center text-gray-500'>認証中...</div>
