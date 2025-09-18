@@ -19,11 +19,11 @@ export default function ToButton(){
                 <form onSubmit={handleSubmit} className="flex flex-col items-center">
                     <input 
                     type="text" 
-                    placeholder="部屋番号を入力" 
+                    placeholder="ROOM NUMBER" 
                     value={roomId} 
                     onChange={(e)=>handleChange(e)} 
                     maxLength={6}
-                    className="mb-5 text-3xl text-center border-2 rounded-full w-80  h-25" />
+                    className="font-[MaruMonica] mb-5 text-3xl text-center border-2 rounded-full w-80  h-25" />
                     <button type="submit" className="bg-zinc-700 hover:bg-zinc-400 text-white text-2xl rounded-full w-80 h-25">コメントを投稿する！</button>
                 </form>
         </div>
