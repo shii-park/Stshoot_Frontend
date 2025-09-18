@@ -25,7 +25,7 @@ export default function CommentPage() {
       wsRef.current = ws;
       
       ws.addEventListener("open", () => {
-        console.log("WebSocket接続しました");
+        console.log("connected!");
       });
       ws.addEventListener("close", () => {
         console.log("closed");
@@ -43,6 +43,7 @@ export default function CommentPage() {
 
       return () => {
         if (ws.readyState === WebSocket.OPEN) {
+          console.log("closed:cleanup")
           ws.close();
         }
       };
