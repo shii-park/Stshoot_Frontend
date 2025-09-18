@@ -25,23 +25,24 @@ export default function CommentPage() {
             }
             const ws = new WebSocket(`wss://stshoot-backend.onrender.com/ws/sender/${roomId}`);
             wsRef.current = ws;
+
             const handleOpen = () => {
-              console.log("connected!");
+                console.log("connected!");
             };
             const handleClose = () => {
-              console.log("closed");
-              alert("配信が終了しました。\nトップページへ戻ります");
-              router.push("/")
+                console.log("closed");
+                alert("配信が終了しました。\nトップページへ戻ります");
+                router.push("/")
             };
             const handleError = (event: Event) => {
-              console.log(`error!*${event}`);
-              ws.close();
-              alert("エラーが発生しました。部屋番号を確認してください。\nトップページへ戻ります。");
-              router.push("/");
+                console.log(`error!*${event}`);
+                ws.close();
+                alert("エラーが発生しました。部屋番号を確認してください。\nトップページへ戻ります。");
+                router.push("/");
             };
             const handleMessage = (event: MessageEvent) => {
-              const receivedComment: CommentItem = JSON.parse(event.data);
-              setComments((prevComments) => [...prevComments, receivedComment]);
+                const receivedComment: CommentItem = JSON.parse(event.data);
+                setComments((prevComments) => [...prevComments, receivedComment]);
             };
 
             ws.addEventListener("open", handleOpen);
@@ -140,27 +141,5 @@ export default function CommentPage() {
                 />
             )}
         </div>
-      </div>
-      <div className="w-full max-w-2xl mx-auto mt-8">
-        <div className="relative" style={{ paddingTop: "56.25%" }}>
-          <iframe
-            src="https://player-api.p.uliza.jp/v1/players/autoplay/tsg/admin?type=normal&name=content-2025-09-18-12-32-06-280-f6dd73cc&repeatable=true&format=iframe&plusScript=false&customOption=%7B%22fullscreenType%22%3A%22native%22%2C%22videoAnalytics%22%3A%7B%22userId%22%3A%22%5BGAUSERID%5D%22%7D%7D"
-            className="absolute top-0 left-0 w-full h-full"
-            style={{ border: "none" }}
-            allowFullScreen
-          />
-        </div>
-      </div>
-    </div>
-    <div ref={listRef} className="flex-1 mt-30 overflow-y-auto px-3 pt-[260px] pb-[100px]">
-      <CommentList comments={comments} />
-    </div>
-    <div className="fixed bottom-0 left-0 w-full z-10">
-      <CommentForm
-        userId={displayId as string}
-        onSend={handleCommentSend}
-        socket={wsRef.current}
-      />
-    </div>
-  </div>;
+    );
 }
