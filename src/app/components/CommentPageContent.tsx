@@ -25,13 +25,13 @@ export default function CommentPage() {
       wsRef.current = ws;
       
       ws.addEventListener("open", () => {
-        console.log("WebSocket接続しました")
+        console.log("WebSocket接続しました");
       });
       ws.addEventListener("close", () => {
-        console.log("closed")
+        console.log("closed");
       });
       ws.addEventListener("error", (event) => {
-        console.log(`error!*${event}`)
+        console.log(`error!*${event}`);
         ws.close();
         alert("エラーが発生しました。部屋番号を確認してください。\nトップページへ戻ります。");
         router.push("/") //テスト時はここをコメントアウト
