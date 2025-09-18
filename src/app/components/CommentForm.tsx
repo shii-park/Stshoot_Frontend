@@ -25,7 +25,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
 
         try {
             const newComment = {
-                username: userId,
+                userId: userId,
                 text: trimmed,
             };
             socket.send(JSON.stringify(newComment));
@@ -33,6 +33,7 @@ const CommentForm = ({ userId, onSend, socket }: CommentFormProps) => {
             onSend({
                 id: 'temp-' + Date.now(),
                 userId: userId,
+                displayId: userId,
                 text: trimmed,
                 createdAt: new Date().toISOString(),
             });
